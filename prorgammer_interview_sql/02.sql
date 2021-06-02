@@ -1,5 +1,7 @@
 /* Practice SQL Interview Question #2
  
+https://www.programmerinterview.com/database-sql/practice-interview-question-2/
+
 
 This question was asked in a Google interview: Given the 2 tables below, User and UserHistory:
 
@@ -22,10 +24,41 @@ action
         if the action field in UserHistory is set to "logged_on").
         Every time a user logs in a new row is inserted into the UserHistory table with user_id,
         current date and action (where action = "logged_on"). */
-select name, phone_num
-from   user_history h join user u on h.user_id = u.user_id 
-where  h.action = 'logged_on'
-  and  datediff(day, date(), date  ) <= 30;
+
+SELECT c.name, c.phone_num, h.date
+FROM user u join 
+(
+  select   h.user_id, max( h.date )
+  from     user_history h 
+  where    h.action = 'logged_on'
+  group by h.user_id
+  having   datediff( day, date(), max( h.date ) ) <= 30  
+) h
+on h.user_id = u.user_id 
+;
+
+
+SELECT c.name, c.phone_num, h.date
+FROM user u join 
+(
+  select   h.user_id, max( h.date )
+  from     user_history h 
+  where    h.action = 'logged_on'
+  group by h.user_id
+  having   h.date >= date_sub( current_date(), interval 30 day )  
+) h
+on h.user_id = u.user_id 
+;
+
+
+SELECT c.name, c.phone_num, max( h.date )
+FROM   user u, user_history h 
+where  c.user_id = h.user_id
+   and h.action = 'logged_on'
+group by h.user_id
+having   h.date >= date_sub( current_date(), interval 30 day )  
+;
+
 
 /* 2.   Write a SQL query to determine which user_ids in the User table are not contained in 
         the UserHistory table (assume the UserHistory table has a subset of the user_ids in 
