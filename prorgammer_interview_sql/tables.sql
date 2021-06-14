@@ -1,0 +1,20 @@
+tutorial.sf_crime_incidents_2014_01
+tutorial.sf_crime_incidents_cleandate
+
+
+tutorial.crunchbase_companies
+tutorial.crunchbase_acquisitions
+tutorial.crunchbase_investments
+tutorial.crunchbase_investments_part1
+tutorial.crunchbase_investments_part2
+
+tutorial.dc_bikeshare_q1_2012
+
+benn.sample_event_table
+
+benn.college_football_players players
+benn.college_football_teams teams
+
+
+
+
