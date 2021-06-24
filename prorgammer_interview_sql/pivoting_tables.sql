@@ -69,9 +69,9 @@ SELECT conference,
 
 
 /******************************************************************************/
-/* pivoting rows to columns */
+/* pivoting columns to rows */
 
-/* explore */
+/* explore. This table has columns: year_200, year_2001, ... */
 SELECT *
 FROM tutorial.worldwide_earthquakes
 
@@ -93,7 +93,7 @@ SELECT years.*,
        ) years
 
 
-/* fix columns using CASE. Reduce 13 columns to just 1 */
+/* fix columns using CASE. Reduce 13 columns, to just one. */
 SELECT years.*,
        earthquakes.magnitude,
        CASE year
