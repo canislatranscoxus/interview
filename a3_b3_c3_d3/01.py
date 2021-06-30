@@ -1,7 +1,7 @@
 '''
 Find the positive integers from 0 to 100 for
 
-  2    2     2   2
+  3    3     3   3
  a  + b   = c + d
 
 
