@@ -2,6 +2,33 @@
 Description: this script print all the permutations with NO duplicates.
                 For example: when runners in a race, you can no arrive first and third place.
 
+    here we handle the permutations like a secuence of numbers. We want to print from 
+    smaller to bigger. Each number can represent a runner, and each permutation has a 
+    relationship with a number in the secuence.
+
+    0 1 2 3
+    0 1 3 2
+    0 2 1 3
+    0 2 3 1
+    0 3 1 2
+    0 3 2 1
+
+    1 0 2 3
+    1 0 3 2
+    1 2 0 3
+    1 2 3 0
+    1 3 0 2
+    1 3 2 0
+
+    3 0 1 2
+    3 0 2 1
+    3 1 0 3
+    3 1 3 0
+    3 2 0 1
+    3 2 1 0
+
+
+
 '''
 
 def _print( objs ):
@@ -22,9 +49,9 @@ def change_in_col( objs, col ):
 
         # get the last part of the array 
         a = objs[ col + 1:  ]
-        a.sort()
 
         # sort the las part of the array
+        a.sort()
         for i in range( size -1, col, -1 ):
             del objs[ i ]
         objs.extend( a ) 
@@ -32,7 +59,7 @@ def change_in_col( objs, col ):
         #find the next element we need in col
         for i in range( col + 1, size ):
             if objs[ i ] > objs[ col ]:
-                tmp = objs[ col ]
+                tmp         = objs[ col ]
                 objs[ col ] = objs[ i ]
                 objs[ i   ] = tmp 
                 col_changed = True

@@ -8,8 +8,8 @@ https://en.wikipedia.org/wiki/Heap%27s_algorithm
 
 
 def _print( objs ):
-    for i in objs:
-        print( i, end=' ' )
+    for obj in objs:
+        print( obj, end=' ' )
     print( ' ' )
 
 def swap( objs, idx1, idx2 ):
@@ -30,10 +30,12 @@ def generate(k, a):
             # Swap choice dependent on parity of k (even or odd)
             if k % 2 == 0 :
                 swap( a, i, k-1 ) # zero-indexed, the kth is at k-1
+                print( '\t\t\t swap even i:{}, k-1:{}'.format( i, k-1 ) )
             else:
                 swap( a, 0, k-1 )
+                print( '\t\t\t swap odd 0, i:{} , k-1:{}'.format( i, k-1 ) )
 
-            #_print( a )        
+            _print( a )        
             
 
         
@@ -60,5 +62,5 @@ def ut_03():
 
 if __name__ == '__main__':
     print( '\n heap algorithm, begin. \n\n' )
-    ut_01()
+    ut_02()
     print( '\n heap algorithm, end. \n\n' )
