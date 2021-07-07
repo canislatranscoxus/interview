@@ -4,8 +4,8 @@ Find the positive integers from 0 to 100 for
 
 Equation E1
 
-  3    3     3   3
- a  + b   = c + d
+  3      3       3       3
+ a  +   b   =   c   +   d
 
 
 My reasoning is, 
@@ -17,6 +17,12 @@ next loop the cache and print all the pairs
 '''
 
 def powers_1_to_n( n, p ):
+    # this function loop from 1 to n, and create a dictionary of sum of powers
+    # and its pair of powers.
+    # 
+    # n       = is the maximum limit number
+    # p       = is the exponent for the power function
+    # i, j    = are indexes used to loop from 1 to n.  
     # sum_pow =   i^p + j^p
     # powers  = a dictionary that store key values.
     #             key is a sum_pow
@@ -38,8 +44,8 @@ def powers_1_to_n( n, p ):
     return powers
 
 def find_abcd( n ):
-    
-    powers = powers_1_to_n( n, 3 )
+    p      = 3
+    powers = powers_1_to_n( n, p )
     for sum_pow, pairs in powers.items():
         if len( pairs ) > 1:
             print( 'a^3 + b^3 = {:>15,} --- {}'.format( sum_pow, pairs ) )
