@@ -19,38 +19,47 @@ next loop the cache and print all the pairs
 '''
 
 def powers_1_to_n( n, p ):
-    # this function loop from 1 to n, and create a dictionary of sum of powers
+    # this function loop from 1 to n, and create a dictionary of powers
     # and its pair of powers.
     # 
     # n       = is the maximum limit number
     # p       = is the exponent for the power function
-    # i, j    = are indexes used to loop from 1 to n.  
-    # sum_pow =   i^p + j^p
     # powers  = a dictionary that store key values.
-    #             key is a sum_pow
-    #             value a set of pairs                    
+    #             key is a number from 1 to n.
+    #             value the power of number.                    
 
     powers = dict()
-    for i in range( 1, n ):
-        for j in range( i + 1, n + 1):
-            sum_pow  = pow( i, p ) + pow( j, p)
-            pair        = ( i, j )
+    for i in range( 1, n + 1 ):
+        powers[ i ] = pow( i, p )
+    return powers
 
-            if sum_pow in powers:
-                powers[ sum_pow ].add( pair )
+
+# a3 + b3
+def get_sum_pow( powers ):
+    sum_pow = dict()
+    for a in range( 1, n ):
+        for b in range( a + 1, n + 1):
+            s    = powers[ a ] + powers[ b ]
+            pair = ( a, b )
+
+            if s in sum_pow:
+                sum_pow[ s ].add( pair )
             else:
                 pairs = set()
                 pairs.add( pair )
-                powers[ sum_pow ] = pairs
+                sum_pow[ s ] = pairs
 
-    return powers
+    return sum_pow
+
 
 def find_abcd( n ):
-    p      = 3
-    powers = powers_1_to_n( n, p )
-    for sum_pow, pairs in powers.items():
+    p       = 3
+    powers  = powers_1_to_n( n, p )
+    sum_pow = get_sum_pow( powers )
+
+    for s, pairs in sum_pow.items():
         if len( pairs ) > 1:
-            print( 'a^3 + b^3 = {:>15,} --- {}'.format( sum_pow, pairs ) )
+            print( 'a^3 + b^3 = {:>15,} --- {}'.format( s, pairs ) )
 
 if __name__ == '__main__':
 

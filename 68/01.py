@@ -13,6 +13,9 @@ a    c    d     b
 |    |    |     |       
 ----------------------->
 
+Complexity = O ( n^4 )
+This is brute force. Real bad performance. see other solutions.
+
 '''
 n = 3
 ab = 0

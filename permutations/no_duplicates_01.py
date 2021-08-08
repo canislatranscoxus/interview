@@ -72,7 +72,7 @@ def change_in_col( objs, col ):
 def permutation( objs  ):
     objs.sort()
     size = len( objs )
-    col = size - 3
+    col  = size - 3
     if size <= 1:
         _print( objs )
         return
@@ -102,9 +102,12 @@ def ut_02():
     s = 'abcd'
     str_permutation( s )
     
+def ut_03():
+    objs = [ 0, 1, 2, 3, 4, 5 ]
+    permutation( objs )
 
 
 if __name__ == '__main__':
     print( '\n begin ... \n\n' )
-    ut_02()
+    ut_03()
     print( '\n\n ...end \n' )
