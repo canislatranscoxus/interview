@@ -33,10 +33,10 @@ order by o.salesperson_id, s.name, o.cust_id, c.name
 /* answer from the article */
 select salesperson_id, Number as OrderNum, Amount from Orders 
 JOIN (  -- this is our subquery from above:
-SELECT salesperson_id, MAX(Amount) AS MaxOrder
-FROM Orders
-GROUP BY salesperson_id
-) as TopOrderAmountsPerSalesperson
+		SELECT salesperson_id, MAX(Amount) AS MaxOrder
+		FROM Orders
+		GROUP BY salesperson_id
+	 ) as TopOrderAmountsPerSalesperson
 USING (salesperson_id)
  where Amount = MaxOrder
 
