@@ -7,12 +7,11 @@ a = [
 ( 'zelda'   , 4 ),
 ]
 
+print ( '\n original list' )
 print( a ) 
 
-print( 'sort by name and num of pets' )
-
-
-a2 = sorted( a, key = lambda t: ( t[0], -t[1]), reverse = True   )
+print( '\n sort by name and num of pets DESC' )
+a2 = sorted( a, key = lambda t: ( t[0], t[1]), reverse = True   )
 print( a2 )
 
 import operator
