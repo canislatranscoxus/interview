@@ -1,5 +1,9 @@
 /*  We want to retrieve the names of all salespeople that have more than 1 order 
-    from the tables above. You can assume that each salesperson only has one ID */
+    from the tables above. You can assume that each salesperson only has one ID 
+    
+    links: https://mode.com/sql-tutorial/intro-to-advanced-sql/
+    
+    */
 
 use sales;
 select s.name

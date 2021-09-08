@@ -9,6 +9,10 @@ current_time()
 current_date
 current_date()
 
+links:
+    https://www.postgresqltutorial.com/postgresql-extract/
+
+
 */
 
 SELECT CURRENT_DATE AS date,
@@ -72,6 +76,24 @@ get months from interval
 /*
 get days from interval
 */
+-- -------------------------------------------------------
+/*
+get years from date
+*/
+EXTRACT( YEAR from my_date )
 
 
+/*
+get mont (1 - 12) from date
+*/
+EXTRACT( month from my_date )
+
+/*
+get day (1 - 31) from date
+*/
+EXTRACT( day from my_date )
+
+
+/* get day of week. The day of week Sunday (0) to Saturday (6) */
+EXTRACT( dow from my_date )
 

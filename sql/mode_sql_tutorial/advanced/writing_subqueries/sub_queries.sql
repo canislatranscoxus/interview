@@ -5,7 +5,8 @@ we can use subqueries in
          FROM
          WHERE
 
-
+links:
+        https://mode.com/sql-tutorial/sql-sub-queries/
 
 *********************************************************************************/
 
@@ -20,6 +21,24 @@ FROM
 
 where sub.resolution = 'NONE'
 limit 10
+
+
+/*
+Practice Problem
+
+Write a query that selects all Warrant Arrests 
+from the tutorial.sf_crime_incidents_2014_01 dataset, 
+then wrap it in an outer query that only displays unresolved incidents. 
+*/
+
+SELECT *
+  FROM (
+        SELECT *
+          FROM tutorial.sf_crime_incidents_2014_01
+         WHERE descript = 'WARRANT ARREST'
+       ) sub
+ WHERE sub.resolution = 'NONE'
+ ;
 
 
 /*
