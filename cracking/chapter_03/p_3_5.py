@@ -39,30 +39,78 @@ class MyStack:
         result = self.s[ -1 ]
         return result
 
-    def sort( self ):
-        _max    = None # Maximum value
-        n_times = None
+    def isEmpty( self ):
+        return len( self.s ) == 0
+            
 
+    def sort( self ):
         if len( self.s ) == 0:
             return
 
-        while True:
-            self.set_max( _max, n_times )
-
-
+        i = 0
+        while i < len( self.s ):
+            i = self.sort_starting( self.s, i )
 
 
     
-    def set_max( s, _max, n_times ):
+    def sort_starting( self, s, index ):
         
         tmp = [] # temporal stack
 
-        # move elements from s to tmp stack
+        _max = None
+        times = 0
 
-        # get _max and n_times
+        # move elements from s to tmp stack
+        # and find _max and times
+        while len( s ) > index:
+            n = s.pop()
+
+            if _max == None or n > _max :
+                _max  = n
+                times = 1
+            
+            elif n == _max :
+                times += 1
+
+            tmp.append( n )
+
 
         # push _max to s stack
+        for i in range(0, times ):
+            s.append( _max )
+
+        # get new index
+        new_index = len( s )
 
         # move elements from tmp to s stack.
+        while len( tmp ) > 0:
+            n = tmp.pop()
+            if n != _max:
+                s.append( n )
+
+        return new_index
+
+
+# -----------------------------------------------------------------------------
+# Unit Test
+# -----------------------------------------------------------------------------
+
+s = MyStack()
+
+s.push( 10 )
+s.push( 30 )
+s.push( 20 )
+s.push( 40 )
+
+
+print( '\n original stack' )
+print( s.s )
+
+s.sort()
+print( '\n sorted stack' )
+print( s.s )
+
+print( '\n ... end \n' )
+
 
 
