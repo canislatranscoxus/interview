@@ -29,9 +29,11 @@ class MinHeapBinaryTree:
     fh_leaf       = None
     fh_leaf_level = 0
 
+
+
     graph         = None
 
-    def insert( self, n ):
+    def insert( self, n, sort_bubble_up = True ):
         try:
             self.last_node_id = self.last_node_id + 1
             n.id              = self.last_node_id
@@ -39,8 +41,11 @@ class MinHeapBinaryTree:
             if self.root == None:
                 self.root         = n
                 return
-            
+
+            self.fh_leaf = None
             p = self.find_free_slot( self.root, level= 0 )
+            if p == None:
+                p = self.fh_leaf
             
             # add node
             if p.left == None:
@@ -48,9 +53,10 @@ class MinHeapBinaryTree:
                 n.parent = p
             else:
                 p.right  = n
-                n.parent = p.right
+                n.parent = p
 
-            self.bubble_up( n )
+            if sort_bubble_up:
+                self.bubble_up( n )
 
         except Exception as e:
             print( 'MinHeapBinaryTree.insert(), error: '.format( e ) )
@@ -74,8 +80,8 @@ class MinHeapBinaryTree:
                 if self.fh_leaf == None or level < self.fh_leaf_level:
                     self.fh_leaf       = n
                     self.fh_leaf_level = level
-                
-                #return None
+
+                return None
 
             elif n.left != None and n.right != None:
                 # has 2 child
@@ -87,7 +93,7 @@ class MinHeapBinaryTree:
                 elif r != None:
                     return r
                 
-            return self.fh_leaf
+            return None
 
         except Exception as e:
             print( 'MinHeapBinaryTree.find_free_slot(), error: '.format( e ) )
@@ -102,8 +108,7 @@ class MinHeapBinaryTree:
             
             if n.value < n.parent.value:
                 self.swap( n.parent, n )
-            
-            self.bubble_up( n )
+                self.bubble_up( n )
 
         except Exception as e:
             print( 'MinHeapBinaryTree.bubble_up(), error: '.format( e ) )
@@ -140,6 +145,8 @@ class MinHeapBinaryTree:
         try:
             _left  = parent.left
             _right = parent.right
+            _parent= parent.parent
+
             parent.left  = child.left
             parent.right = child.right
 
@@ -150,8 +157,15 @@ class MinHeapBinaryTree:
                 child.right = parent
                 child.left  = _left
 
-            child.parent = parent.parent
+
             parent.parent = child
+
+            child.parent = _parent
+            if _parent.left == parent:
+                _parent.left = child
+            else:
+                _parent.right = child
+
         except Exception as e:
             print( 'MinHeapBinaryTree.swap(), error: '.format( e ) )
 
@@ -170,6 +184,14 @@ class MinHeapBinaryTree:
     def get_graph( self, comment = 'Min Heap Binary Tree', format= 'pdf' ):
         try:
             self.graph = graphviz.Digraph(comment= comment, format = format )
+
+            # Graph Orientation:
+            #   LR = horizontal
+            #   TB = vertical
+
+            #self.graph.attr('graph', rankdir='TB')
+            self.graph.attr( rankdir='TB' )
+
             self.add_node_2_graph( self.graph, self.root )
             self.add_edge_2_graph( self.graph, self.root )
             return self.graph
@@ -197,11 +219,13 @@ class MinHeapBinaryTree:
                 return
             
             if n.left != None:
-                g.edge( str( n.id ), str( n.left.id ), constraint = 'false' )
+                #g.edge( str( n.id ), str( n.left.id ), constraint = 'false' )
+                g.edge(str(n.id), str(n.left.id) )
                 self.add_edge_2_graph( g, n.left )
 
             if n.right != None:
-                g.edge( str( n.id ), str( n.right.id ), constraint = 'false' )
+                #g.edge( str( n.id ), str( n.right.id ), constraint = 'false' )
+                g.edge(str(n.id), str(n.right.id) )
                 self.add_edge_2_graph( g, n.right )
 
             

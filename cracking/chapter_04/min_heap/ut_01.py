@@ -1,5 +1,5 @@
 '''
-Unit Test
+Unit Test: ut01 - Insert Nodes.
 
 Insert nodes:
     4, 50, 7, 55, 90, 87
@@ -8,10 +8,10 @@ Insert nodes:
 the tree most be like this
 
             4
-         /     \
-      50        7
+         /      \
+      50         7
      /   \     /   \
-   55    90   87   ⚪
+   55    90   87    º
 
 insert 2
 
@@ -36,24 +36,22 @@ from MinHeapBinaryTree  import MinHeapBinaryTree
 from Node               import Node
 
 dir = '/home/art/Downloads/'
-
 a = [ 4, 50, 7, 55, 90, 87 ]
-
-#a = [ 4 ]
-
 tree = MinHeapBinaryTree()
 
+print( 'insert multiple nodes' )
 for i in a:
     n = Node( i )
     tree.insert( n )
+    print( 'inserting node: {}'.format( i ) )
 
 g = tree.get_graph( )
-
 file_name = os.path.join( dir, 'ut01_g01' )
 tree.save_graph( file_name = file_name )
 
+print( 'Now we insert node 2' )
 n = Node( 2 )
-tree.insert( n )
+tree.insert( n, sort_bubble_up= True )
 
 g = tree.get_graph( )
 file_name = os.path.join( dir, 'ut01_g02' )
