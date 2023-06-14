@@ -29,6 +29,9 @@ class MinHeapBinaryTree:
     fh_leaf       = None
     fh_leaf_level = 0
 
+    # last lowest leaf
+    ll_leaf       = None
+    ll_leaf_level = 0
 
 
     graph         = None
@@ -62,7 +65,55 @@ class MinHeapBinaryTree:
             print( 'MinHeapBinaryTree.insert(), error: '.format( e ) )
             
     def extract_min_value( self ):
-        pass
+        try:
+            min_node = self.root
+            if self.is_leaf( self.root ):
+                return min_node
+
+            self.ll_leaf       = None
+            self.ll_leaf_level = 0
+
+            self.get_last_lowest_leaft( self.root, 0 )
+            n = self.ll_leaf
+
+            # connect n as root
+            n.left          = self.root.left
+            n.right         = self.root.right
+            self.root.left  = None
+            self.root.right = None
+            self.root       = n
+
+            # clean parent of n
+            p = n.parent
+            if p.left == n:
+                p.left = None
+            else:
+                p.right = None
+
+            n.parent = None
+            self.bubble_down( n )
+
+            return min_node
+        except Exception as e:
+            print('MinHeapBinaryTree.extract_min_value(), error: {}'.format(e))
+
+
+    def get_last_lowest_leaft(self, n, level):
+        try:
+            if n == None:
+                return
+
+            if self.is_leaf( n ):
+                if self.ll_leaf == None or level >= self.ll_leaf_level:
+                    self.ll_leaf = n
+                    self.ll_leaf_level = level
+
+            else:
+                self.get_last_lowest_leaft( n.left , level + 1 )
+                self.get_last_lowest_leaft( n.right, level + 1 )
+
+        except Exception as e:
+            print('MinHeapBinaryTree.get_last_lowest_leaft(), error: '.format(e))
 
     def find_free_slot( self, n, level ):
         # this method finds the node that has 1 or 2 free slots.
@@ -113,18 +164,24 @@ class MinHeapBinaryTree:
         except Exception as e:
             print( 'MinHeapBinaryTree.bubble_up(), error: '.format( e ) )
 
-
     def get_smallest_child( self, n ):
-        
-        if n == None or (n.left == None or n.right == None):
-            return None
-        
-        if (n.left != None and n.right == None) or \
-            n.left <= n.right:
-            return self.LEFT_CHILD
-        else:
-            return self.RIGHT_CHILD 
-        
+        # who is the smalles child? left child or right child?
+        try:
+            if n == None or (n.left == None or n.right == None):
+                return None
+
+            if (n.left != None and n.right == None) or \
+                n.left.value <= n.right.value:
+                return self.LEFT_CHILD
+            else:
+                return self.RIGHT_CHILD
+
+        except Exception as e:
+            print( 'MinHeapBinaryTree.get_smallest_child(), error: {}'.format( e ) )
+            raise
+
+
+
     def bubble_down( self, n ):
         try:
             if n == None or self.is_leaf( n ):
@@ -137,19 +194,25 @@ class MinHeapBinaryTree:
             else:
                 self.swap( n, n.right )
 
+            self.bubble_down(n)
+
         except Exception as e:
-            print( 'MinHeapBinaryTree.bubble_down(), error: '.format( e ) )
+            print( 'MinHeapBinaryTree.bubble_down(), error: {}'.format( e ) )
+            raise
 
 
     def swap( self, parent, child ):
         try:
-            _left  = parent.left
-            _right = parent.right
-            _parent= parent.parent
+            step     = '1. get parent pointers'
+            _left    = parent.left
+            _right   = parent.right
+            _grandpa = parent.parent
 
+            step = '2. parent conn'
             parent.left  = child.left
             parent.right = child.right
 
+            step = '3. child conn'
             if _left == child:
                 child.left  = parent
                 child.right = _right
@@ -157,17 +220,24 @@ class MinHeapBinaryTree:
                 child.right = parent
                 child.left  = _left
 
-
+            step = '4. grand parent'
             parent.parent = child
 
-            child.parent = _parent
-            if _parent.left == parent:
-                _parent.left = child
-            else:
-                _parent.right = child
+            step = '5. conect grandpa to child'
+            child.parent = _grandpa
+            if _grandpa != None and _grandpa.left == parent:
+                _grandpa.left = child
+            elif _grandpa != None and  _grandpa.right == parent:
+                _grandpa.right = child
+
+            step = '6. set root'
+            if _grandpa == None:
+                self.root = child
 
         except Exception as e:
-            print( 'MinHeapBinaryTree.swap(), error: '.format( e ) )
+            print( 'MinHeapBinaryTree.swap(), error: {}'.format( e ) )
+            print( step )
+            raise
 
 
     def is_leaf( self, n ):
