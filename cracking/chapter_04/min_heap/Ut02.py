@@ -2,32 +2,33 @@
 Unit Test: ut01 - Insert Nodes.
 
 Insert nodes:
-    4, 50, 7, 55, 90, 87
+    13, 69, 74, 88, 99, 32, 23
 
 
 the tree most be like this
 
-            4
-         /      \
-      50         7
-     /   \     /   \
-   55    90   87    º
+             13
+          /      \
+        69        23
+      /   \     /    \
+     88   99   74     32
 
-insert 2
+insert 96
+             13
+          /      \
+        69        23
+      /   \     /    \
+     88   99   74     32
+    /
+   96
 
-            4
-         /     \
-      50        7
-     /   \     /   \
-   55    90   87    2
+after extract 13, the smallest value ( root node )
 
-after bubble up
-
-            2
-         /     \
-      50        4
-     /   \     /   \
-   55    90   87    7
+             23
+          /      \
+        69        32
+      /   \     /    \
+     88   99   74     96
    
 '''
 import os
