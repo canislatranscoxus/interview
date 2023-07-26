@@ -35,7 +35,7 @@ def partition( a, start, end ):
     for i in range( start, end ):
 
         if a[ i ] < pivot:
-            # move to left
+            # swap. Move to left
             a[ i ], a[ pi ] =  a[ pi ], a[ i ]
             pi += 1
 
