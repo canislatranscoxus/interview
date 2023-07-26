@@ -11,13 +11,14 @@ references  :
 import random
 
 
-def list_to_buckets( array, base, iteration ):
+def list_to_buckets( a, base, exp ):
     
     buckets = [[] for _ in range(base)]
-    
-    for number in array:
-        # Isolate the base-digit from the number
-        digit = (number // (base ** iteration)) % base
+    divisor = base ** exp
+
+    for number in a:
+        # Isolate the base-digit from the number. The bucket index.
+        digit = ( number // divisor ) % base
         
         # Drop the number into the correct bucket
         buckets[ digit ].append( number )
@@ -26,33 +27,28 @@ def list_to_buckets( array, base, iteration ):
 
 
 def buckets_to_list( buckets ):
-    numbers = []
+    # append the numbers from the buckets sequentially in an array.
+    a = []
     
     for bucket in buckets:
-        # append the numbers in a bucket
-        # sequentially to the returned array
         for number in bucket:
-            numbers.append(number)
-    return numbers
+            a.append( number )
+    return a
 
 
-def radix_sort( array, base = 10 ):
-    # array         : array or list with positive numbers to sort.
+def radix_sort( a, base = 10 ):
+    # a             : array or list with positive numbers to sort.
     # max_val       : the biggest value in input array.
     # i             : iteration counter
-    # sorted_array  : the output, the sorted array.
 
-    max_val = max( array )
-    i = 0
-
-    sorted_array = array
+    max_val = max( a )
+    exp = 0
 
     # Iterate, sorting the array by each base-digit
-    while base ** i <= max_val:
-        sorted_array = buckets_to_list( list_to_buckets( sorted_array, base, i ) )
-        i += 1
-
-    return sorted_array
+    while base ** exp <= max_val:
+        a    = buckets_to_list( list_to_buckets( a, base, exp ) )
+        exp += 1
+    return a
 
 # -----------------------------------------------------------------------------
 # test

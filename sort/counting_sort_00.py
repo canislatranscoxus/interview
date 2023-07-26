@@ -38,9 +38,9 @@ def counting_sort( input, k  ):
 
     print( 'count - summatory: {}'.format( count ) )
 
+
     # Fill output array.
     for i in range( len( input ) -1, -1, -1 ):
-        
         j = get_key_in_count( input[ i ] )
         count[ j ] = count[ j ] - 1
         output[ count[ j ] ] = input[ i ]

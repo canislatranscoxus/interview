@@ -1,6 +1,6 @@
 '''
 Bucket sort is used to sort an array or list of float numbers
-in a range from 0 to 1
+in a range from 0 to 1.
 
 links:
 https://en.wikipedia.org/wiki/Bucket_sort
