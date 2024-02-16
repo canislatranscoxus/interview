@@ -1,6 +1,27 @@
 /*
 Pivoting columns to rows
 https://mode.com/sql-tutorial/sql-pivot-table/
+
+
+
+input table: earthquake
+
+magnitude    2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012
+---------    ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+8.0 to 9.9     1
+
+
+
+output: a table with two columns, year and magnitude
+
+year   magnitude     number_of_earthquakes
+----   ----------    ---------------------
+2000   8.0 to 9.9               1
+...
+
+
+
+
 */
 
 select y.year, e.magnitude,
